@@ -1,26 +1,40 @@
-import os
-import pytest
+from unittest.mock import Mock, call
+
+from processamento import ProcessadorDeAcoes
 
 
-@pytest.fixture
-def ambiente_testing():
-    # Setup
-    os.environ["APP_ENV"] = "testing"
+def test_executar_processo():
 
-    banco_falso = ["item1", "item2"]
+    processador = ProcessadorDeAcoes()
 
-    # Entrega o banco para o teste
-    yield banco_falso
+    chamadas = Mock()
 
-    # Teardown
-    if "APP_ENV" in os.environ:
-        del os.environ["APP_ENV"]
+    def validar(dados):
+        chamadas.validar(dados)
+        return True
 
+    def salvar(dados):
+        chamadas.salvar(dados)
+        return True
 
-def test_processamento_de_dados(ambiente_testing):
-    # Execução
-    ambiente_testing.append("item3")
+    processador.validar_dados = validar
+    processador.salvar_dados = salvar
 
-    # Asserções
-    assert os.environ["APP_ENV"] == "testing"
-    assert len(ambiente_testing) == 3
+    dados = {
+        "nome": "Maria",
+        "idade": 25
+    }
+
+    resultado = processador.executar_processo(dados)
+
+    assert resultado == "Processo executado com sucesso"
+
+    roteiro_esperado = [
+        call.validar(dados),
+        call.salvar(dados)
+    ]
+
+    chamadas.assert_has_calls(
+        roteiro_esperado,
+        any_order=False
+    )
