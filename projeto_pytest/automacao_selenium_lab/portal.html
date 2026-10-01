@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal do Colaborador</title>
+</head>
+
+<body>
+
+    <h1>Bem-vindo ao Portal</h1>
+
+    <form id="formulario">
+
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome">
+
+        <br><br>
+
+        <label for="email">E-mail corporativo:</label>
+        <input type="email" id="email">
+
+        <br><br>
+
+        <button type="submit" id="enviar">Enviar Dados</button>
+
+    </form>
+
+    <p id="mensagem-sucesso" style="display: none;">
+        Dados enviados com sucesso!
+    </p>
+
+    <hr>
+
+    <h2>Ações Avançadas</h2>
+
+    <button id="duplo-clique">
+        Duplo clique para Autorizar
+    </button>
+
+    <button id="clique-direito">
+        Clique direito para Opções
+    </button>
+
+    <br><br>
+
+    <textarea id="observacoes" rows="5" cols="50">Apague este texto e insira suas observações.</textarea>
+
+
+    <script>
+
+        document.getElementById("formulario").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            document.getElementById("mensagem-sucesso").style.display = "block";
+
+        });
+
+
+        document.getElementById("duplo-clique").addEventListener("dblclick", function() {
+
+            this.textContent = "Autorizado!";
+
+        });
+
+
+        document.getElementById("clique-direito").addEventListener("contextmenu", function(event) {
+
+            event.preventDefault();
+
+            this.textContent = "Menu Aberto!";
+
+        });
+
+    </script>
+
+</body>
+</html>
