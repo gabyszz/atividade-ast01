@@ -1,0 +1,3 @@
+# Explicação dos Conceitos e Ajustes de Linter
+
+Durante a refatoração, aprendi que os erros **E711** e **E712** ocorrem porque comparar explicitamente valores booleanos ou nulos com `== True`, `== False` ou `!= None` é redundante, sendo recomendado utilizar checagens implícitas (`if usuario:`, `if not forcar_erro:`) ou a identidade de objetos (`if senha is not None:`). Além disso, a adição do plugin `flake8-pytest-style` (com o prefixo **PT**) exigiu que as asserções adotassem o padrão idiomático do ecossistema do Pytest (como `is True` em vez de `== True`), o que garante relatórios de falha muito mais claros, legíveis e informativos para a equipe de desenvolvimento.
